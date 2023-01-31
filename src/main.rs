@@ -35,7 +35,7 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2";
     let mut result = vec![background.clone(); moves.len()];
     let buffer = File::create("foo.gif").unwrap();
     let mut map = vec![];
-    let mut gif = image::codecs::gif::GifEncoder::new(buffer);
+    let mut gif = image::codecs::gif::GifEncoder::new_with_speed(buffer, 30);
     moves
         .par_iter()
         .enumerate()
