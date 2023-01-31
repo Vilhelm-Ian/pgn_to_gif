@@ -57,7 +57,6 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2";
         Ok(_) => println!("gif encoded"),
         Err(err) => println!("problem encoding gif {err:?}"),
     };
-    println!("Hello, world!");
 }
 
 fn fen_to_image(
