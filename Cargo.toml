@@ -1,0 +1,11 @@
+[package]
+name = "pgn_to_gif"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+image = "0.24.5"
+pgnparse = "0.1.15"
+rayon = "1.6.1"
