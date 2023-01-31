@@ -1,9 +1,8 @@
-use image::{open};
+use image::open;
 use pgnparse::parser::*;
 use rayon::prelude::*;
 use std::collections::HashMap;
 use std::fs::File;
-
 
 const PIECES: [&str; 12] = ["p", "n", "b", "r", "k", "q", "P", "N", "B", "R", "K", "Q"];
 const OFF_SET: i64 = 7;
