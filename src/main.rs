@@ -1,9 +1,8 @@
-use image::{open, GenericImage, GenericImageView, ImageBuffer};
+use image::open;
 use pgnparse::parser::*;
 use rayon::prelude::*;
 use std::collections::HashMap;
 use std::fs::File;
-use std::thread;
 
 const PIECES: [&str; 12] = ["p", "n", "b", "r", "k", "q", "P", "N", "B", "R", "K", "Q"];
 const OFF_SET: i64 = 7;
@@ -11,10 +10,10 @@ const OFF_SET: i64 = 7;
 fn main() {
     let background = open("../assets/board.png").unwrap().into_rgba8();
     let mut pieces_images = HashMap::new();
-    for (index, piece) in PIECES.iter().enumerate() {
-        let path = format!("../assets/{}.png", piece);
-        let mut image = open(path).unwrap().into_rgba8();
-        pieces_images.insert(*piece, image);
+    for piece in PIECES {
+        let path = format!("../assets/{piece}.png");
+        let image = open(path).unwrap().into_rgba8();
+        pieces_images.insert(piece, image);
     }
     let pgn = "[Date '1992.11.04']
 [Round '29']
@@ -56,9 +55,8 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2";
     }
     match gif.encode_frames(frames) {
         Ok(_) => println!("gif encoded"),
-        Err(err) => println!("problem encoding gif {:?}", err),
+        Err(err) => println!("problem encoding gif {err:?}"),
     };
-    println!("Hello, world!");
 }
 
 fn fen_to_image(
