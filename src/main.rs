@@ -32,7 +32,7 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2";
 
     let pgn_struc = parse_pgn_to_rust_struct(pgn);
     let moves = get_fens(pgn_struc);
-    let mut result = vec![background.clone(); moves.len()];
+    let mut result: Vec<Option<image::RgbaImage>> = vec![None; moves.len()];
     let buffer = File::create("foo.gif").unwrap();
     let mut map = vec![];
     let mut gif = image::codecs::gif::GifEncoder::new_with_speed(buffer, 30);
@@ -46,11 +46,11 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2";
         })
         .collect_into_vec(&mut map);
     for (index, _move) in map {
-        result[index] = _move
+        result[index] = Some(_move)
     }
     let mut frames = vec![];
     for image in result {
-        let frame = image::Frame::new(image);
+        let frame = image::Frame::new(image.unwrap());
         frames.push(frame)
     }
     match gif.encode_frames(frames) {
